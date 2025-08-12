@@ -19,6 +19,5 @@ public class BookingMessageListener {
         System.out.println("OTP: " + message.getOtp());
         System.out.println("ETA: " + message.getEta());
         
-        // You can add any further processing logic here
     }
 }

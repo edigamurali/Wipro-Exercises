@@ -1,7 +1,11 @@
 package com.wipro.rider.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.wipro.rider.entity.Booking;
 import com.wipro.rider.service.BookingService;
@@ -10,11 +14,10 @@ import com.wipro.rider.service.BookingService;
 @RequestMapping("/ride")
 public class BookingController {
 
-    private final BookingService bookingService;
+	@Autowired
+    private BookingService bookingService;
 
-    public BookingController(BookingService bookingService) {
-        this.bookingService = bookingService;
-    }
+   
 
     @PostMapping
     public ResponseEntity<Booking> bookRide(@RequestBody Booking booking) {
