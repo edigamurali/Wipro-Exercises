@@ -1,0 +1,8 @@
+.box {
+  margin: 50px 100px 50px 100px;
+}
+.formbox {
+  border: 5px solid black;
+  margin: 50px 100px 20px 100px;
+  padding-left: 200px;
+}
