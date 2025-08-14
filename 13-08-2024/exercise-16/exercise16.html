@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Photo Gallery</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: #f8f8f8;
+      }
+      img {
+        max-width: 400px;
+        height: auto;
+        margin-top: 50px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      }
+      button {
+        width: 100px;
+        padding: 10px;
+        color: white;
+        background-color: steelblue;
+        margin: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: dodgerblue;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <img id="image" />
+    </div>
+    <div>
+      <button onclick="previous()">Previous</button>
+      <button onclick="next()">Next</button>
+    </div>
+
+    <script src="exe16.js"></script>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    let persons = [
+      {
+        name: "ram",
+        age: 20,
+        city: "hyd",
+      },
+      {
+        name: "ramesh",
+        age: 30,
+        city: "hyd",
+      },
+      {
+        name: "murali",
+        age: 23,
+        city: "atp",
+      },
+      {
+        name: "madhu",
+        age: 15,
+        city: "hyd",
+      },
+    ];
+    let eligibleVoters = persons.filter((person) => person.age >= 18);
+    console.log(eligibleVoters);
+  </script>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Form</title>
+    <style>
+      span {
+        color: red;
+        visibility: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <form onsubmit="return validateCredintials()">
+      <div>
+        <label>Email</label>
+        <input
+          type="email"
+          id="emailinput"
+          placeholder="Enter email"
+          onblur="validateEmail()"
+        />
+        <span id="email"></span>
+      </div>
+      <div>
+        <label>Password</label>
+        <input
+          type="password"
+          id="passinput"
+          placeholder="Enter password"
+          onblur="validatePassword()"
+        />
+        <span id="pass"></span>
+      </div>
+      <div>
+        <button type="submit">Login</button>
+      </div>
+    </form>
+
+    <script src="exe13.js"></script>
+  </body>
+</html>

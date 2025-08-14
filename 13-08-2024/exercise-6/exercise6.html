@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let names = [
+        "ram",
+        "murali",
+        "madhav reddy",
+        "vishnu",
+        "anamica",
+        "siri",
+      ];
+
+      let nameLen = names.filter((name) => name.length > 5);
+
+      let upperName = nameLen.map((name) => name.toUpperCase());
+
+      console.log(upperName);
+
+      for (let i = 0; i < upperName.length; i++) {
+        console.log(upperName[i]);
+      }
+    </script>
+  </body>
+</html>
