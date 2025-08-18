@@ -1,0 +1,28 @@
+<div>
+  <button (click)="loadCountries()">Load</button>
+
+  <select>
+    @for (country of countries; track $index) {
+    <option>{{ country }}</option>
+    }
+  </select>
+</div>
+<!--Exercise 13-->
+<!-- Dropdown -->
+<select [(ngModel)]="color">
+  <option>GREEN</option>
+  <option>YELLOW</option>
+  <option>BLUE</option>
+  <option>RED</option>
+</select>
+
+<!-- Exercise 13-->
+@switch(color) { @case('GREEN') {
+<div style="color: green">YOU HAVE SELECTED {{ color }}</div>
+} @case('RED') {
+<div style="color: red">YOU HAVE SELECTED {{ color }}</div>
+} @case('YELLOW') {
+<div style="color: yellow">YOU HAVE SELECTED {{ color }}</div>
+} @case('BLUE') {
+<div style="color: blue">YOU HAVE SELECTED {{ color }}</div>
+} }
