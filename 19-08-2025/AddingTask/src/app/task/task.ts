@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-task',
   standalone: true,
-  imports: [FormsModule], // 👈 Required for ngModel
+  imports: [FormsModule], 
   templateUrl: './task.html',
   styleUrls: ['./task.css'],
 })
