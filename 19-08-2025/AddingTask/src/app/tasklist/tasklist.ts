@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-tasklist',
   standalone: true,
-  imports: [CommonModule], // 👈 Required for *ngFor, *ngIf
+  imports: [CommonModule],
   templateUrl: './tasklist.html',
   styleUrls: ['./tasklist.css'],
 })
