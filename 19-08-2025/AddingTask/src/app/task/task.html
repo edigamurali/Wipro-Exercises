@@ -1,0 +1,8 @@
+<input [(ngModel)]="description" placeholder="Task Description" />
+<select [(ngModel)]="category">
+  <option value="" disabled>Select Category</option>
+  <option>Work</option>
+  <option>Personal</option>
+  <option>Others</option>
+</select>
+<button (click)="submitTask()">Add Task</button>

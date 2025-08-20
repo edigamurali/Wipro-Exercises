@@ -1,0 +1,10 @@
+<div class="card">
+  @for(fruit of fruits;track $index) {
+  <div class="cardbody">
+    <img [src]="fruit.image" [alt]="fruit.name" />
+    <h1>{{ fruit.name }}</h1>
+    <p>{{ fruit.description }}</p>
+  </div>
+
+  }
+</div>

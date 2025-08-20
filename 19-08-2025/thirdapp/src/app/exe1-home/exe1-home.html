@@ -1,0 +1,5 @@
+<div class="card">
+  @for (fruit of fruits; track $index) {
+  <app-fruit [fruit]="fruit" (btnClick)="remove($event)"></app-fruit>
+  }
+</div>

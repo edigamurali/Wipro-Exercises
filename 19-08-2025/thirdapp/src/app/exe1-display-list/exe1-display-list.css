@@ -1,0 +1,19 @@
+.card {
+  display: grid;
+  grid-template-columns: 3fr 3fr 3fr 3fr;
+  gap: 20px;
+}
+.cardbody img {
+  height: 100px;
+  width: 100px;
+  padding-left: 100px;
+  margin-top: 50px;
+}
+.cardbody {
+  border: 2px solid black;
+  border-radius: 10px;
+}
+h1,
+p {
+  text-align: center;
+}

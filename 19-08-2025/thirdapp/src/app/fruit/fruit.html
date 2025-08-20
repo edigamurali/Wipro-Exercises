@@ -1,0 +1,6 @@
+<div class="cardbody">
+  <img [src]="fruit.image" alt="{{ fruit.name }}" />
+  <h2>{{ fruit.name }}</h2>
+  <p>{{ fruit.description }}</p>
+  <button (click)="onClick(fruit.name)">REMOVE</button>
+</div>

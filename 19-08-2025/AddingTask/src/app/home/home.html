@@ -1,0 +1,5 @@
+<h2>Task Manager</h2>
+
+<app-task (addTask)="handleAddTask($event)"></app-task>
+
+<app-tasklist [tasks]="tasks" (deleteTask)="handleDeleteTask($event)"></app-tasklist>
