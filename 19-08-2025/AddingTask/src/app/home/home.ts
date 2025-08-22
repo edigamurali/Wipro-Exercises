@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, TaskComponent, TasklistComponent], // 👈 import children
+  imports: [CommonModule, TaskComponent, TasklistComponent],
   templateUrl: './home.html',
   styleUrls: ['./home.css'],
 })
