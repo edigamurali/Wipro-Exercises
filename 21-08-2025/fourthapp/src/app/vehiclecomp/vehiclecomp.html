@@ -1,0 +1,33 @@
+<!-- Vehicle List -->
+@for (vehicle of vehicles; track $index) {
+<p>
+  {{ vehicle.id }} - {{ vehicle.make }} - {{ vehicle.model }} - {{ vehicle.fuelType }} -
+  {{ vehicle.price }}
+</p>
+<button (click)="edit(vehicle.id)">Edit</button>
+<button (click)="delete(vehicle.id)">Delete</button>
+}
+
+<hr />
+
+<!-- Edit Vehicle -->
+<div>
+  <h3>Edit Vehicle</h3>
+  <input type="text" [(ngModel)]="vehicleEdit.make" placeholder="Make" />
+  <input type="text" [(ngModel)]="vehicleEdit.model" placeholder="Model" />
+  <input type="text" [(ngModel)]="vehicleEdit.fuelType" placeholder="Fuel Type" />
+  <input type="number" [(ngModel)]="vehicleEdit.price" placeholder="Price" />
+  <button (click)="update()">Update</button>
+</div>
+
+<hr />
+
+<!-- Add New Vehicle -->
+<div>
+  <h3>Add Vehicle</h3>
+  <input type="text" [(ngModel)]="vehicleAdd.make" placeholder="Make" />
+  <input type="text" [(ngModel)]="vehicleAdd.model" placeholder="Model" />
+  <input type="text" [(ngModel)]="vehicleAdd.fuelType" placeholder="Fuel Type" />
+  <input type="number" [(ngModel)]="vehicleAdd.price" placeholder="Price" />
+  <button (click)="save()">Save</button>
+</div>

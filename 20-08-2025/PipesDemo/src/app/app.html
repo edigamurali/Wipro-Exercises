@@ -1,0 +1,9 @@
+<input type="text" [(ngModel)]="textEntered" placeholder="enter name" />
+<div>{{ textEntered | uppercase }}</div>
+<!-- EXERCISE2-->
+<input type="date" [(ngModel)]="shortDate" placeholder="select Date" />
+<div>{{ shortDate | date : 'short' }}</div>
+<!-- EXERCISE3-->
+<div>{{ centigrade | ctF }}</div>
+<!--EXERCISE$-->
+<h1 appHighlightstrikethru>MURALI</h1>
