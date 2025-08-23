@@ -1,0 +1,61 @@
+<div class="container my-5">
+  <div class="card shadow-lg p-4" style="max-width: 600px; margin: auto; border-radius: 1rem">
+    <h3 class="text-center fw-bold mb-4">✏️ Edit Product</h3>
+
+    <form (ngSubmit)="save()" #f="ngForm">
+      <div class="mb-3">
+        <label for="name" class="form-label fw-semibold">Name</label>
+        <input
+          id="name"
+          name="name"
+          [(ngModel)]="product.name"
+          type="text"
+          class="form-control"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="category" class="form-label fw-semibold">Category</label>
+        <input
+          id="category"
+          name="category"
+          [(ngModel)]="product.category"
+          type="text"
+          class="form-control"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="price" class="form-label fw-semibold">Price</label>
+        <input
+          id="price"
+          name="price"
+          [(ngModel)]="product.price"
+          type="number"
+          class="form-control"
+          min="1"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="qty" class="form-label fw-semibold">Available Qty</label>
+        <input
+          id="qty"
+          name="qty"
+          [(ngModel)]="product.qty"
+          type="number"
+          class="form-control"
+          min="0"
+          required
+        />
+      </div>
+
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary px-4" [disabled]="f.invalid">💾 Update</button>
+      </div>
+    </form>
+  </div>
+</div>

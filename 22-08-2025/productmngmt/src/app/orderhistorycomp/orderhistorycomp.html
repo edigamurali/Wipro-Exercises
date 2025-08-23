@@ -1,0 +1,42 @@
+<div class="container my-4">
+  <!-- Title -->
+  <div class="text-center mb-4">
+    <h2 class="fw-bold">📜 Order History</h2>
+    <p class="text-muted">Track all your past orders in one place</p>
+  </div>
+
+  <!-- Orders Table -->
+  <div *ngIf="orders.length; else noOrders" class="d-flex justify-content-center">
+    <div class="card shadow-lg border-0 w-100" style="max-width: 800px; border-radius: 1rem">
+      <div class="card-body p-4">
+        <table class="table table-hover align-middle text-center mb-0">
+          <thead class="table-dark">
+            <tr>
+              <th>Product</th>
+              <th>Date</th>
+              <th>Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let o of orders">
+              <td class="fw-semibold">{{ o.productName }}</td>
+              <td>{{ o.orderDate | date : 'medium' }}</td>
+              <td>
+                <span class="badge bg-primary fs-6 px-3 py-2">{{ o.qty }}</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- No Orders -->
+  <ng-template #noOrders>
+    <div class="d-flex justify-content-center">
+      <div class="alert alert-info text-center shadow-sm w-100" style="max-width: 500px">
+        No orders yet. 🛒
+      </div>
+    </div>
+  </ng-template>
+</div>

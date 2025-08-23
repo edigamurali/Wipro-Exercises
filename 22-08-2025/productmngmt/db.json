@@ -1,0 +1,22 @@
+{
+  "products": [
+    {
+      "id": "bst",
+      "name": "Laptop",
+      "category": "Electronics",
+      "price": 75000
+    },
+    {
+      "id": "fa74",
+      "name": "Mobile",
+      "category": "Electronics",
+      "price": 35000
+    },
+    {
+      "id": "1c33",
+      "name": "Sofa",
+      "category": "Furniture",
+      "price": 78000
+    }
+  ]
+}

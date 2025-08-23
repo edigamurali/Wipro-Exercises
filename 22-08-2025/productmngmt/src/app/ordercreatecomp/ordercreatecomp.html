@@ -1,0 +1,41 @@
+<div class="container my-5">
+  <div class="card shadow-lg p-4" style="max-width: 600px; margin: auto; border-radius: 1rem">
+    <h3 class="text-center fw-bold mb-4">🛒 Place Order</h3>
+
+    <form #f="ngForm" (ngSubmit)="placeOrder(f)">
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Product</label>
+        <select class="form-select" name="product" [(ngModel)]="selectedProductId" required>
+          <option [ngValue]="undefined" disabled>Select a product</option>
+          <option *ngFor="let p of products" [ngValue]="p.id">
+            {{ p.name }} (available: {{ p.qty }}) – {{ p.price | currency : 'INR' }}
+          </option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Quantity</label>
+        <input
+          type="number"
+          class="form-control"
+          name="qty"
+          [(ngModel)]="purchaseQty"
+          [min]="1"
+          [max]="selectedProduct?.qty || 1"
+          required
+        />
+        <div *ngIf="selectedProduct && purchaseQty > selectedProduct.qty" class="text-danger mt-1">
+          ⚠ You cannot order more than available ({{ selectedProduct.qty }}).
+        </div>
+      </div>
+
+      <div *ngIf="errorMsg" class="text-danger mb-3">{{ errorMsg }}</div>
+
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary px-4" [disabled]="placing || !canPlace()">
+          ✅ Place Order
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
