@@ -30,7 +30,6 @@ public class UserController {
         userService.deleteById(id);
     }
 
-    // ✅ Explicit register endpoint
     @PostMapping("/register")
     public void register(@RequestBody User user) {
         userService.save(user);

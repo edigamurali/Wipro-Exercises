@@ -7,7 +7,6 @@ import lombok.Data;
 @Table(name = "user")
 @Data
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -19,5 +18,6 @@ public class User {
     private String email;
 
     @Column
-    private String passWord;
+    private String passWord; // will store the full BCrypt hash
 }
+

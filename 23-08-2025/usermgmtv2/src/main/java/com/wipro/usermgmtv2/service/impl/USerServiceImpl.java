@@ -1,17 +1,20 @@
 package com.wipro.usermgmtv2.service.impl;
 
+import java.security.Key;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.wipro.usermgmtv2.entity.User;
 import com.wipro.usermgmtv2.model.Token;
 import com.wipro.usermgmtv2.repo.UserRepo;
 import com.wipro.usermgmtv2.service.UserService;
+import com.wipro.usermgmtv2.util.EncryptUtil;
+
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.security.Key;
-import java.util.Date;
-import java.util.List;
 
 @Service
 public class USerServiceImpl implements UserService {
@@ -31,9 +34,24 @@ public class USerServiceImpl implements UserService {
     public User findById(int id) {
         return userRepo.findById(id).orElse(null);
     }
-
     @Override
     public void save(User user) {
+        if (user.getId() == 0) { // new user registration
+            String encryptedPassword = EncryptUtil.getEncryptedPassword(user.getPassWord());
+            user.setPassWord(encryptedPassword);
+        } else {
+            User existingUser = userRepo.findById(user.getId()).orElse(null);
+            if (existingUser != null) {
+                // if password changed
+                if (!EncryptUtil.checkPassword(user.getPassWord(), existingUser.getPassWord())) {
+                    String encryptedPassword = EncryptUtil.getEncryptedPassword(user.getPassWord());
+                    user.setPassWord(encryptedPassword);
+                } else {
+                    // keep old hash
+                    user.setPassWord(existingUser.getPassWord());
+                }
+            }
+        }
         userRepo.save(user);
     }
 
@@ -44,9 +62,14 @@ public class USerServiceImpl implements UserService {
 
     @Override
     public Token login(User user) {
-        User userData = userRepo.findByEmailAndPassWord(user.getEmail(), user.getPassWord());
-        if (userData != null) {
-            String jwt = generateJWT(userData.getEmail());
+        User dbUser = userRepo.findByEmail(user.getEmail());
+        if (dbUser == null) {
+            return null;
+        }
+
+        // verify password with stored hash
+        if (EncryptUtil.checkPassword(user.getPassWord(), dbUser.getPassWord())) {
+            String jwt = generateJWT(dbUser.getEmail());
             return new Token("Bearer " + jwt);
         }
         return null;
@@ -56,9 +79,10 @@ public class USerServiceImpl implements UserService {
         return Jwts.builder()
                 .setId("jwtExample")
                 .setSubject(username)
-                .claim("authorities", List.of("ROLE_USER")) // simple role
+                .claim("authorities", List.of("ROLE_USER"))
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // 1 hr
+                //.setExpiration(new Date(System.currentTimeMillis() + 1000 * 60)) // 1 min
                 .signWith(key)
                 .compact();
     }
