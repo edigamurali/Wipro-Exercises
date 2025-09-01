@@ -1,0 +1,154 @@
+<div class="container-fluid py-4">
+  <div class="row">
+    <!-- Sidebar for categories -->
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">
+            <i class="material-icons me-2">category</i>Categories
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="list-group">
+            <button
+              class="list-group-item list-group-item-action"
+              [class.active]="selectedCategory === ''"
+              (click)="filterByCategory('')"
+            >
+              All Products
+            </button>
+            <button
+              *ngFor="let category of categories"
+              class="list-group-item list-group-item-action"
+              [class.active]="selectedCategory === category"
+              (click)="filterByCategory(category)"
+            >
+              {{ category }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="col-md-9">
+      <!-- Search and filters -->
+      <div class="card mb-4">
+        <div class="card-body">
+          <div class="row align-items-center">
+            <div class="col-md-6">
+              <h4 class="mb-0">
+                <i class="material-icons me-2">inventory</i>
+                {{ selectedCategory || "All Products" }}
+              </h4>
+            </div>
+            <div class="col-md-6">
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Search products..."
+                  [(ngModel)]="searchTerm"
+                  (keyup.enter)="searchProducts()"
+                />
+                <button
+                  class="btn btn-outline-primary"
+                  type="button"
+                  (click)="searchProducts()"
+                >
+                  <i class="material-icons">search</i>
+                </button>
+                <button
+                  class="btn btn-outline-secondary"
+                  type="button"
+                  (click)="clearFilters()"
+                >
+                  <i class="material-icons">clear</i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Error message -->
+      <div class="alert alert-danger" *ngIf="error">
+        <i class="material-icons me-2">error</i>{{ error }}
+      </div>
+
+      <!-- Loading -->
+      <div class="text-center py-5" *ngIf="loading">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-3">Loading products...</p>
+      </div>
+
+      <!-- Products grid -->
+      <div class="row" *ngIf="!loading">
+        <div class="col-md-4 col-lg-3 mb-4" *ngFor="let product of products">
+          <div class="card h-100 product-card">
+            <div class="card-img-top-container">
+              <!-- FIXED: Proper image handling with error fallback -->
+              <img
+                [src]="getImageUrl(product)"
+                class="card-img-top"
+                [alt]="product.name"
+                (error)="onImageError($event, product)"
+                style="height: 200px; object-fit: cover; width: 100%"
+                loading="lazy"
+              />
+            </div>
+            <div class="card-body d-flex flex-column">
+              <h6 class="card-title">{{ product.name }}</h6>
+              <p class="card-text text-muted small">
+                {{ product.description }}
+              </p>
+              <div class="mt-auto">
+                <div
+                  class="d-flex justify-content-between align-items-center mb-3"
+                >
+                  <span class="h5 text-primary mb-0"
+                    >₹{{ product.price | number : "1.2-2" }}</span
+                  >
+                  <small class="text-muted">Stock: {{ product.stock }}</small>
+                </div>
+                <button
+                  class="btn btn-primary w-100"
+                  [disabled]="product.stock === 0 || isAddingToCart(product.id)"
+                  (click)="addToCart(product)"
+                >
+                  <span
+                    *ngIf="isAddingToCart(product.id)"
+                    class="spinner-border spinner-border-sm me-2"
+                  ></span>
+                  <i
+                    class="material-icons me-2"
+                    *ngIf="!isAddingToCart(product.id)"
+                    >add_shopping_cart</i
+                  >
+                  {{
+                    product.stock === 0
+                      ? "Out of Stock"
+                      : isAddingToCart(product.id)
+                      ? "Adding..."
+                      : "Add to Cart"
+                  }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- No products found -->
+      <div class="text-center py-5" *ngIf="!loading && products.length === 0">
+        <i class="material-icons text-muted mb-3" style="font-size: 4rem"
+          >inventory_2</i
+        >
+        <h5>No products found</h5>
+        <p class="text-muted">Try adjusting your search or filters</p>
+      </div>
+    </div>
+  </div>
+</div>

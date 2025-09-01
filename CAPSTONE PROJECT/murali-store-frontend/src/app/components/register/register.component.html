@@ -1,0 +1,134 @@
+<div class="register-container">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-5">
+        <div class="card shadow">
+          <div class="card-body p-5">
+            <div class="text-center mb-4">
+              <i
+                class="material-icons text-primary mb-3"
+                style="font-size: 3rem"
+                >person_add</i
+              >
+              <h3 class="card-title">Join Murali Store</h3>
+              <p class="text-muted">Create your account to start shopping</p>
+            </div>
+
+            <div class="alert alert-success" *ngIf="success">
+              <i class="material-icons me-2">check_circle</i>
+              Registration successful! Redirecting to login...
+            </div>
+
+            <form
+              (ngSubmit)="onSubmit()"
+              #registerForm="ngForm"
+              *ngIf="!success"
+            >
+              <div class="mb-3">
+                <label for="name" class="form-label">Full Name</label>
+                <div class="input-group">
+                  <span class="input-group-text">
+                    <i class="material-icons">person</i>
+                  </span>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="name"
+                    [(ngModel)]="user.name"
+                    name="name"
+                    required
+                    placeholder="Enter your full name"
+                  />
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <div class="input-group">
+                  <span class="input-group-text">
+                    <i class="material-icons">email</i>
+                  </span>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    [(ngModel)]="user.email"
+                    name="email"
+                    required
+                    email
+                    placeholder="Enter your email"
+                  />
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <div class="input-group">
+                  <span class="input-group-text">
+                    <i class="material-icons">lock</i>
+                  </span>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    [(ngModel)]="user.password"
+                    name="password"
+                    required
+                    minlength="6"
+                    placeholder="Enter your password"
+                  />
+                </div>
+              </div>
+
+              <div class="mb-4">
+                <label for="confirmPassword" class="form-label"
+                  >Confirm Password</label
+                >
+                <div class="input-group">
+                  <span class="input-group-text">
+                    <i class="material-icons">lock_outline</i>
+                  </span>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="confirmPassword"
+                    [(ngModel)]="confirmPassword"
+                    name="confirmPassword"
+                    required
+                    placeholder="Confirm your password"
+                  />
+                </div>
+              </div>
+
+              <div class="alert alert-danger" *ngIf="error">
+                <i class="material-icons me-2">error</i>{{ error }}
+              </div>
+
+              <button
+                type="submit"
+                class="btn btn-primary w-100 mb-3"
+                [disabled]="loading || !registerForm.form.valid"
+              >
+                <span
+                  *ngIf="loading"
+                  class="spinner-border spinner-border-sm me-2"
+                ></span>
+                <i class="material-icons me-2" *ngIf="!loading">person_add</i>
+                {{ loading ? "Creating Account..." : "Create Account" }}
+              </button>
+
+              <div class="text-center">
+                <p class="mb-0">
+                  Already have an account?
+                  <a routerLink="/login" class="text-decoration-none"
+                    >Sign in here</a
+                  >
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

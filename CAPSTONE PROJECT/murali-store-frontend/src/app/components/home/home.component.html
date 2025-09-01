@@ -1,0 +1,77 @@
+<div class="hero-section">
+  <div class="hero-content text-center">
+    <div class="container">
+      <h1 class="display-3 fw-bold mb-4">Welcome to Murali Store</h1>
+      <p class="lead mb-5">
+        Your one-stop destination for quality products at affordable prices
+      </p>
+
+      <div *ngIf="!authService.isAuthenticated(); else loggedInContent">
+        <div class="auth-buttons">
+          <a routerLink="/login" class="btn btn-primary btn-lg me-3">
+            <i class="material-icons me-2">login</i>Login
+          </a>
+          <a routerLink="/register" class="btn btn-outline-light btn-lg">
+            <i class="material-icons me-2">person_add</i>Register
+          </a>
+        </div>
+        <p class="mt-4 text-light">
+          Join thousands of satisfied customers today!
+        </p>
+      </div>
+
+      <ng-template #loggedInContent>
+        <div class="welcome-back">
+          <h3 class="mb-4">
+            Welcome back, {{ (authService.currentUser$ | async)?.name }}!
+          </h3>
+          <a routerLink="/products" class="btn btn-success btn-lg">
+            <i class="material-icons me-2">shopping_bag</i>Start Shopping
+          </a>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
+
+<div class="container my-5">
+  <div class="row">
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body text-center">
+          <i class="material-icons text-primary mb-3" style="font-size: 3rem"
+            >local_shipping</i
+          >
+          <h5 class="card-title">Free Shipping</h5>
+          <p class="card-text">Free shipping on all orders above ₹500</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body text-center">
+          <i class="material-icons text-success mb-3" style="font-size: 3rem"
+            >verified</i
+          >
+          <h5 class="card-title">Quality Guaranteed</h5>
+          <p class="card-text">
+            All products are quality checked before delivery
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body text-center">
+          <i class="material-icons text-warning mb-3" style="font-size: 3rem"
+            >support_agent</i
+          >
+          <h5 class="card-title">24/7 Support</h5>
+          <p class="card-text">
+            Round the clock customer support for all queries
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+.navbar-brand {
+  font-size: 1.5rem;
+}
+
+.material-icons {
+  font-size: 18px;
+  vertical-align: middle;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+}

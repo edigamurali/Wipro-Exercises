@@ -1,0 +1,225 @@
+<div class="container py-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>
+      <i class="material-icons me-2">admin_panel_settings</i>Product Management
+    </h2>
+    <div>
+      <button
+        class="btn btn-success me-2"
+        (click)="showAddForm()"
+        *ngIf="!showForm"
+      >
+        <i class="material-icons me-2">add</i>Add Product
+      </button>
+      <button class="btn btn-outline-primary" (click)="loadProducts()">
+        <i class="material-icons me-2">refresh</i>Refresh
+      </button>
+    </div>
+  </div>
+
+  <div class="alert alert-danger" *ngIf="error">
+    <i class="material-icons me-2">error</i>{{ error }}
+  </div>
+
+  <!-- Product Form -->
+  <div class="card mb-4" *ngIf="showForm">
+    <div class="card-header">
+      <h5 class="mb-0">
+        <i class="material-icons me-2">{{ editMode ? "edit" : "add" }}</i>
+        {{ editMode ? "Edit Product" : "Add New Product" }}
+      </h5>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="saveProduct()" #productForm="ngForm">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="name" class="form-label">Product Name *</label>
+              <input
+                type="text"
+                class="form-control"
+                id="name"
+                [(ngModel)]="currentProduct.name"
+                name="name"
+                required
+                placeholder="Enter product name"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="category" class="form-label">Category *</label>
+              <input
+                type="text"
+                class="form-control"
+                id="category"
+                [(ngModel)]="currentProduct.category"
+                name="category"
+                required
+                placeholder="Enter category"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="price" class="form-label">Price (₹) *</label>
+              <input
+                type="number"
+                class="form-control"
+                id="price"
+                [(ngModel)]="currentProduct.price"
+                name="price"
+                required
+                min="0"
+                step="0.01"
+                placeholder="0.00"
+              />
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="stock" class="form-label">Stock Quantity *</label>
+              <input
+                type="number"
+                class="form-control"
+                id="stock"
+                [(ngModel)]="currentProduct.stock"
+                name="stock"
+                required
+                min="0"
+                placeholder="0"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="image" class="form-label">Image URL</label>
+              <input
+                type="url"
+                class="form-control"
+                id="image"
+                [(ngModel)]="currentProduct.image"
+                name="image"
+                placeholder="https://example.com/image.jpg"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="description" class="form-label">Description *</label>
+          <textarea
+            class="form-control"
+            id="description"
+            [(ngModel)]="currentProduct.description"
+            name="description"
+            required
+            rows="3"
+            placeholder="Enter product description"
+          ></textarea>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="saving || !productForm.form.valid"
+          >
+            <span
+              *ngIf="saving"
+              class="spinner-border spinner-border-sm me-2"
+            ></span>
+            <i class="material-icons me-2" *ngIf="!saving">{{
+              editMode ? "update" : "add"
+            }}</i>
+            {{
+              saving
+                ? editMode
+                  ? "Updating..."
+                  : "Adding..."
+                : editMode
+                ? "Update Product"
+                : "Add Product"
+            }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="cancelForm()"
+          >
+            <i class="material-icons me-2">cancel</i>Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Products Table -->
+  <div class="card" *ngIf="!loading">
+    <div class="card-header">
+      <h5 class="mb-0">Products ({{ products.length }})</h5>
+    </div>
+    <div class="card-body p-0" *ngIf="products.length > 0">
+      <div class="table-responsive">
+        <table class="table table-hover mb-0">
+          <thead class="table-light">
+            <tr>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Stock</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let product of products">
+              <td>
+                <img
+                  [src]="product.image || 'assets/placeholder-product.jpg'"
+                  class="product-thumbnail"
+                  [alt]="product.name"
+                />
+              </td>
+              <td>
+                <div class="fw-bold">{{ product.name }}</div>
+                <small class="text-muted"
+                  >{{ product.description | slice : 0 : 50 }}...</small
+                >
+              </td>
+              <td>{{ product.category }}</td>
+              <td>₹{{ product.price | number : "1.2-2" }}</td>
+              <td>
+                <span
+                  class="badge"
+                  [class]="product.stock > 0 ? 'bg-success' : 'bg-danger'"
+                >
+                  {{ product.stock }}
+                </span>
+              </td>
+              <td>
+                <button
+                  class="btn btn-sm btn-outline-primary me-2"
+                  (click)="editProduct(product)"
+                >
+                  <i class="material-icons">edit</i>
+                </button>
+                <button
+                  class="btn btn-sm btn-outline-danger"
+                  (click)="deleteProduct(product)"
+                >
+                  <i class="material-icons">delete</i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card-body text-center py-5" *ngIf="products.length === 0">
+      <i class="material-icons text-muted mb-3" style="font-size: 4rem"
+        >inventory_2</i
+      >
+      <h5>No products found</h5>
+      <p class="text-muted">Start by adding your first product</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+.hero-section {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  color: white;
+}
+
+.hero-content {
+  padding: 4rem 0;
+}
+
+.auth-buttons .btn {
+  min-width: 140px;
+}
+
+.welcome-back {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.card {
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.material-icons {
+  font-family: "Material Icons";
+}
