@@ -33,7 +33,6 @@ export class ProductListComponent implements OnInit {
   ngOnInit() {
     this.loadCategories();
 
-    // Check if we have a category parameter
     this.route.params.subscribe((params) => {
       if (params['category']) {
         this.selectedCategory = params['category'];

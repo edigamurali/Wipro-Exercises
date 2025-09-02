@@ -52,39 +52,23 @@ export class ProductService {
     });
   }
 
-  // NEW: Method to construct proper image URLs
   getImageUrl(imagePath: string | null | undefined): string {
     if (!imagePath) {
       return this.getPlaceholderImage();
     }
 
-    // If already a full URL, return as is
     if (imagePath.startsWith('http')) {
       return imagePath;
     }
 
-    // Try different backend image serving patterns
-    // Uncomment the pattern that matches your backend setup:
+       return `${this.baseUrl}/images/${imagePath}`;
 
-    // Pattern 1: Images served at /images/ endpoint
-    return `${this.baseUrl}/images/${imagePath}`;
+      }
 
-    // Pattern 2: Images served through products endpoint
-    // return `${this.baseUrl}/products/images/${imagePath}`;
-
-    // Pattern 3: Images served from uploads folder
-    // return `${this.baseUrl}/uploads/${imagePath}`;
-
-    // Pattern 4: Images served from static folder
-    // return `${this.baseUrl}/static/images/${imagePath}`;
-  }
-
-  // NEW: Get placeholder image
   getPlaceholderImage(): string {
     return 'https://via.placeholder.com/300x200/e9ecef/6c757d?text=No+Image';
   }
 
-  // NEW: Check if image URL is valid (for debugging)
   checkImageUrl(imagePath: string): Observable<boolean> {
     return new Observable((observer) => {
       const img = new Image();
