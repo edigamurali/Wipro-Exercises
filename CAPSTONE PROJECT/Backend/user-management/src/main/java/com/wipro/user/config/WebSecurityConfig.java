@@ -19,8 +19,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
             .csrf(csrf -> csrf.disable())
-            // CORS removed - handled by API Gateway
-            .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                       .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/user/login", "/user/register", "/user/logout", "/user/public/**").permitAll()
                 .requestMatchers("/user/profile/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
@@ -33,5 +32,5 @@ public class WebSecurityConfig {
             .build();
     }
 
-    // corsConfigurationSource() method completely removed
+    
 }

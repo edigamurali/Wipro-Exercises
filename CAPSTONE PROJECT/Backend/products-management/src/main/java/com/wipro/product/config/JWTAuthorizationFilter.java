@@ -38,13 +38,12 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
         System.out.println("=== Product Service Filter ===");
         System.out.println("Method: " + method + ", Path: " + path);
 
-        // Skip authentication for Swagger endpoints
         if (path.startsWith("/swagger-ui") || path.startsWith("/v3/api-docs")) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        // First priority: Check for Gateway headers (X-User and X-Roles)
+        
         String userHeader = request.getHeader("X-User");
         String rolesHeader = request.getHeader("X-Roles");
         String userIdHeader = request.getHeader("X-User-Id");
@@ -71,7 +70,6 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
             return;
         }
 
-        // Second priority: Check for direct JWT token
         String authHeader = request.getHeader("Authorization");
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String token = authHeader.substring(7);

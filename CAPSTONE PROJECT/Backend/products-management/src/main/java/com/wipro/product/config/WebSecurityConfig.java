@@ -22,7 +22,6 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
             .csrf(csrf -> csrf.disable())
-            // CORS removed - handled by API Gateway
             .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
@@ -32,5 +31,4 @@ public class WebSecurityConfig {
             .build();
     }
 
-    // corsConfigurationSource() method completely removed
-}
+    }
